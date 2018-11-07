@@ -9,11 +9,12 @@ import (
 type EchoServer struct {
 }
 
-func (e *EchoServer) Handle(method, params string) string {
-	return "ECHO:" + params
+func (e EchoServer) Handle(method, params string) *Response {
+	logger.Info("ECHO:" + params)
+	return &Response{Code: "OK", Body: "ECHO:" + params}
 }
 
-func (e *EchoServer) Name() string {
+func (e EchoServer) Name() string {
 	return "EchoServer"
 }
 

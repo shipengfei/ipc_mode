@@ -19,12 +19,13 @@ func (client *IpcClient) Call(method, params string) (resp *Response, err error)
 	b, err = json.Marshal(req)
 	if err != nil {
 		logger.Error(err)
-		break
+		return nil, err
 	}
 
 	client.conn <- string(b)
 	res := <-client.conn // 等待服务器返回数据值
 	err = json.Unmarshal([]byte(res), resp)
+	logger.Info(res)
 	return
 }
 
